@@ -13,7 +13,6 @@ import static com.github.argherna.ajpbin.Requests.getRequestUrl;
 import static com.github.argherna.ajpbin.Requests.parameterStringToMap;
 import static java.lang.String.format;
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
-import static javax.servlet.http.HttpServletResponse.SC_METHOD_NOT_ALLOWED;
 import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -23,7 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "AjpMethodsServlet", urlPatterns = {"/get", "/post", "/delete", "/put"})
+@WebServlet(name = "AjpMethodsServlet", urlPatterns = {"/http"})
 public class AjpMethodsServlet extends HttpServlet {
 
   private static final Logger LOGGER = Logger.getLogger(AjpMethodsServlet.class.getName());
@@ -31,51 +30,24 @@ public class AjpMethodsServlet extends HttpServlet {
   @Override
   protected void doDelete(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
-    // Only answer requests ending with "/delete".
-    if (!request.getRequestURI().endsWith("/delete")) {
-      response.setStatus(SC_METHOD_NOT_ALLOWED);
-      return;
-    }
-
     request.setAttribute(OUTPUT_MAP_ATTR_NAME, createBodylessRequestOutput(request));
   }
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
-
-    // Only answer requests ending with "/get".
-    if (!request.getRequestURI().endsWith("/get")) {
-      response.setStatus(SC_METHOD_NOT_ALLOWED);
-      return;
-    }
-
     request.setAttribute(OUTPUT_MAP_ATTR_NAME, createBodylessRequestOutput(request));
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
-    // Only answer requests ending with "/post".
-    if (!request.getRequestURI().endsWith("/post")) {
-      response.setStatus(SC_METHOD_NOT_ALLOWED);
-      return;
-    }
-
     doMethodWithRequestBody(request, response);
   }
 
   @Override
   protected void doPut(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
-    // Only answer requests ending with "/put".
-    if (!request.getRequestURI().endsWith("/put")) {
-      response.setStatus(SC_METHOD_NOT_ALLOWED);
-      return;
-    }
 
     doMethodWithRequestBody(request, response);
   }

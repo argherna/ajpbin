@@ -17,7 +17,7 @@ import javax.script.ScriptException;
 /**
  * Json utility methods.
  */
-public final class Json {
+final class Json {
 
   private static final Logger LOGGER = Logger.getLogger(Json.class.getName());
 
